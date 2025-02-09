@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block contenido %}
+<form method="post">
+    {% csrf_token %}
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Crear deporte</div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="form-group form-inline">
+                        <div class="row p-0">
+                            <div class="col-12">
+                                <label for="inlineinput" class="col-md-6 col-form-label">Nombre del deporte</label>
+                                {{ form.name }}
+                                <label for="inlineinput" class="col-md-6 col-form-label">Descripcion</label>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+              <button type="submit" class="btn btn-success">Guardar</button>
+              <a href="{% url 'sport_list' %}" class="btn btn-danger">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock %}
