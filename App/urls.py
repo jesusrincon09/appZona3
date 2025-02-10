@@ -1,6 +1,9 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views.index import *
 from .views.sport import *
+from .views.company import *
 from django.conf.urls import handler404
 
 handler404 = Custom404View.as_view()
@@ -11,4 +14,6 @@ urlpatterns = [
     path('sport/create/', CreateSportView.as_view(), name="sport_create"),
     path('sport/update/<int:pk>/', UpdateSportView.as_view(), name="sport_update"),
     path('sport/delete/<int:pk>/', DeleteSportView.as_view(), name="sport_delete"),
-]
+    path('company/create/', CreateCompanyView.as_view(), name="company_create"),
+    path('company/update/<int:pk>/', UpdateCompanyView.as_view(), name="company_update"),
+]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
