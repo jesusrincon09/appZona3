@@ -4,7 +4,7 @@ from enum import Enum
 
 class Sport(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, max_length=1000)
 
     class Meta:
         verbose_name = 'Sport'

@@ -1,0 +1,35 @@
+{% if messages %}
+  {% for message in messages %}
+  <script>
+    var content = {};
+    var type_error = "{{ message.tags }}";
+    content.message = '';
+    content.title = "{{ message }}";
+    
+    if (type_error == 'success') {
+      content.icon = "icon-check";
+    } else if (type_error == 'error') {
+      content.icon = "icon-close"; 
+      type_error = 'danger';
+    } else if (type_error == 'warning') {
+      content.icon = "icon-energy";    
+    } else if (type_error == 'info') {
+      content.icon = "icon-info";    
+    }
+    
+    $.notify(content, {
+      type: type_error,
+      placement: {
+        from: 'top',
+        align: 'right',
+      },
+      time: 1,
+      delay: 1000,
+      animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+      }
+    });
+  </script>
+  {% endfor %}
+{% endif %}

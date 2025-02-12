@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import *
+from django.contrib import messages  
 from App.forms.sport import SportForm
 from App.models import Sport
 
@@ -9,22 +10,25 @@ class ListSportView(ListView):
     template_name = "sport/list.html"
     context_object_name = "sports"
 
-class CreateSportView(CreateView, SuccessMessageMixin):
+class CreateSportView(SuccessMessageMixin, CreateView):
     model = Sport
     form_class = SportForm
     template_name = "sport/create.html"
     success_url = reverse_lazy('sport_list')
     success_message = "Deporte creado correctamente"
-    
-class UpdateSportView(UpdateView, SuccessMessageMixin):
+
+class UpdateSportView(SuccessMessageMixin, UpdateView):
     model = Sport
     form_class = SportForm
     template_name = "sport/edit.html"
     success_url = reverse_lazy('sport_list')
     success_message = "Deporte actualizado correctamente"
 
-class DeleteSportView(DeleteView, SuccessMessageMixin):
+class DeleteSportView(DeleteView):
     model = Sport
     template_name = "sport/delete.html"
     success_url = reverse_lazy('sport_list')
-    success_message = "Deporte eliminado correctamente"
+
+    def form_valid(self, form):
+        messages.warning(self.request, "Deporte eliminado correctamente")
+        return super().form_valid(form)

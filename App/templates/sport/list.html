@@ -1,22 +1,24 @@
 {% extends "base.html" %}
+{% load static %}
 {% block contenido %}
     <div class="page-inner">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <div class="row">
-                <h4 class="card-title col-10">Deportes</h4>
-                <div class="col-2">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-10">
+                    <h4 class="card-title">Deportes</h4>
+                </div>
+                <div class="col-12 col-md-2 text-md-end text-center mt-2 mt-md-0">
                     <a href="{% url 'sport_create' %}" class="btn btn-secondary">
                         <span class="btn-label">
-                          <i class="fa fa-plus"></i>
+                            <i class="fa fa-plus"></i>
                         </span>
                         Crear deporte
                     </a>
                 </div>
             </div>
-           
-          </div>
+        </div> 
           <div class="card-body">
             <div class="table-responsive">
               <table id="multi-filter-select" class="display table table-striped table-hover">
@@ -25,25 +27,17 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
-                    <th>Gestión</th>
+                    <th class="text-center">Gestión</th>
                   </tr>
                 </thead>
-                <tfoot>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Gestión</th>
-                  </tr>
-                </tfoot>
                 <tbody>
                     {% for sport in sports %}
                   <tr>
                     <td>{{ sport.id }}</td>
                     <td>{{ sport.name }}</td>
                     <td>{{ sport.description }}</td>
-                    <td>
-                        <div class="d-flex gap-2">
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
                             <a href="{% url 'sport_update' sport.id %}" 
                                class="btn btn-icon btn-round btn-black btn-secondary"
                                data-bs-toggle="tooltip" 
@@ -72,64 +66,5 @@
   </div>
 {% endblock %}
 {% block scripts %}
-<script>
-    $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-      type: "line",
-      height: "70",
-      width: "100%",
-      lineWidth: "2",
-      lineColor: "#177dff",
-      fillColor: "rgba(23, 125, 255, 0.14)",
-    });
-
-    $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-      type: "line",
-      height: "70",
-      width: "100%",
-      lineWidth: "2",
-      lineColor: "#f3545d",
-      fillColor: "rgba(243, 84, 93, .14)",
-    });
-
-    $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-      type: "line",
-      height: "70",
-      width: "100%",
-      lineWidth: "2",
-      lineColor: "#ffa534",
-      fillColor: "rgba(255, 165, 52, .14)",
-    });
-
-    $("#multi-filter-select").DataTable({
-        pageLength: 5,
-        initComplete: function () {
-          this.api()
-            .columns()
-            .every(function () {
-              var column = this;
-              var select = $(
-                '<select class="form-select"><option value=""></option></select>'
-              )
-                .appendTo($(column.footer()).empty())
-                .on("change", function () {
-                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                  column
-                    .search(val ? "^" + val + "$" : "", true, false)
-                    .draw();
-                });
-
-              column
-                .data()
-                .unique()
-                .sort()
-                .each(function (d, j) {
-                  select.append(
-                    '<option value="' + d + '">' + d + "</option>"
-                  );
-                });
-            });
-        },
-      });
-  </script>
+  <script src="{% static 'js/app/tools.js' %}"></script>
 {% endblock %}
