@@ -55,6 +55,10 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{Days(self.day).name} ({self.startime} - {self.endtime})"
 
+    @property
+    def day_name(self):
+        return Days(self.day).name.capitalize()
+
     
 class Spaces(models.Model):
     name = models.CharField(max_length=50)

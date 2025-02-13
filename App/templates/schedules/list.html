@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="page-inner">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-10">
+                    <h4 class="card-title">Horarios</h4>
+                </div>
+                <div class="col-12 col-md-2 text-md-end text-center mt-2 mt-md-0">
+                    <a href="{% url 'schedules_create' %}" class="btn btn-secondary">
+                        <span class="btn-label">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        Crear horario
+                    </a>
+                </div>
+            </div>
+        </div> 
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="multi-filter-select" class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Dia</th>
+                    <th class="text-center">Hora de inicio</th>
+                    <th class="text-center">Hora fin</th>
+                    <th class="text-center">Gestión</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for schedule in schedules %}
+                  <tr>
+                    <td class="text-center">{{ schedule.id }}</td>
+                    <td class="text-center">{{ schedule.day_name }}</td>
+                    <td class="text-center">{{ schedule.startime|time:"h:i A" }}</td>
+                    <td class="text-center">{{ schedule.endtime|time:"h:i A" }}</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{% url 'schedules_update' schedule.id %}" 
+                               class="btn btn-icon btn-round btn-black btn-secondary"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="Editar deporte">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            
+                            <a href="{% url 'schedules_delete' schedule.id %}" 
+                               class="btn btn-icon btn-round btn-black btn-danger"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="Eliminar deporte">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>                                      
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/app/tools.js' %}"></script>
+{% endblock %}
