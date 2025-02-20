@@ -30,5 +30,5 @@ class DeleteSportView(DeleteView):
     success_url = reverse_lazy('sport_list')
 
     def form_valid(self, form):
-        messages.warning(self.request, "Deporte eliminado correctamente")
+        messages.success(self.request, "Deporte eliminado correctamente")
         return super().form_valid(form)
