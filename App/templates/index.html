@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block contenido %}
     <div class="page-inner">
-      <div
-        class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
-      >
+      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div>
-          <h1 class="fw-bold mb-3"><b>Zona 3x3</b></h1>
+         
+          <h1 class="fw-bold mb-3">
+            <b>{{ company.name|default:'' }}</b>
+          </h1>        
         </div>
         <div class="ms-md-auto py-2 py-md-0">
-          <a href="#" class="btn btn-label-info btn-round me-2">Gestionar</a>
-          <a href="#" class="btn btn-primary btn-round">Crear reserva</a>
+          {% if company %}
+            <a href="{% url 'company_update' company.pk %}" class="btn btn-secondary btn-round">Editar empresa</a>
+          {% else %}
+            <a href="{% url 'company_create' %}" class="btn btn-primary btn-round">Crear empresa</a>
+          {% endif %}
         </div>
       </div>
       <div class="row">

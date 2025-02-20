@@ -50,10 +50,10 @@
           <div class="logo-header" data-background-color="dark">
             <a href="{% url 'home' %}" class="logo">
               <img
-                src="{% static 'img/kaiadmin/logo_light.svg' %}"
+                src="{{ company.logo.url }}"
                 alt="navbar brand"
                 class="navbar-brand"
-                height="20"
+                height="100"
               />
             </a>
             <div class="nav-toggle">
@@ -75,7 +75,7 @@
             <ul class="nav nav-secondary">
               <li class="nav-item active">
                 <a href="{% url 'home' %}" class="fas fa-home">
-                  <i class="fas fa-home"></i><p>Zona 3x3</p>
+                  <i class="fas fa-home"></i><p>{{ company.name }}</p>
                 </a>
               </li>
               <li class="nav-section">
