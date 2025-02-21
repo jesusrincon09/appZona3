@@ -4,14 +4,14 @@ from django.views.generic import *
 from App.forms.company import CompanyForm
 from App.models import Company
 
-class CreateCompanyView(CreateView, SuccessMessageMixin):
+class CreateCompanyView(SuccessMessageMixin, CreateView):
     model = Company
     form_class = CompanyForm
     template_name = "company/create.html"
     success_url = reverse_lazy('home')
     success_message = "Compañía creada correctamente"
     
-class UpdateCompanyView(UpdateView, SuccessMessageMixin):
+class UpdateCompanyView(SuccessMessageMixin, UpdateView):
     model = Company
     form_class = CompanyForm
     template_name = "company/edit.html"
