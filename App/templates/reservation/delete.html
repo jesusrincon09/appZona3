@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block contenido %}
+<form method="post">
+    {% csrf_token %}
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Eliminar reserva</div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <p>¿Está seguro de eliminar la reserva <b>{{ reservation.client_name }}</b>?</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+              <a href="{% url 'spaces_list' %}" class="btn btn-info">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock %}

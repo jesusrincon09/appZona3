@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="{% static 'css/plugins.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/kaiadmin.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/select2.min.css' %}" />
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{% static 'css/demo.css' %}" />
@@ -101,6 +103,12 @@
                 <a href="{% url 'spaces_list' %}">
                   <i class="fab fa-fort-awesome"></i>
                   <p>Espacios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'reservation_list' %}">
+                  <i class="fas fa-concierge-bell"></i>
+                  <p>Reservas</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -603,6 +611,9 @@
           $('.style-select2').select2();
       });
     </script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     {% include "messages.html" %}
     {% block scripts %}
 

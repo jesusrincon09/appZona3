@@ -6,6 +6,7 @@ from .views.sport import *
 from .views.schedules import *
 from .views.company import *
 from .views.spaces import *
+from .views.reservation import *
 from django.conf.urls import handler404
 
 handler404 = Custom404View.as_view()
@@ -31,4 +32,9 @@ urlpatterns = [
     path('spaces/create/', CreateSpacesView.as_view(), name="spaces_create"),
     path('spaces/update/<int:pk>/', UpdateSpacesView.as_view(), name="spaces_update"),
     path('spaces/delete/<int:pk>/', DeleteSpacesView.as_view(), name="spaces_delete"),
+    #Reservation
+    path('reservation/', ListReservationView.as_view(), name="reservation_list"),
+    path('reservation/create/', CreateReservationView.as_view(), name="reservation_create"),
+    path('reservation/update/<int:pk>/', UpdateReservationView.as_view(), name="reservation_update"),
+    path('reservation/delete/<int:pk>/', DeleteReservationView.as_view(), name="reservation_delete"),
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

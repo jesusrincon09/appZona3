@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<form method="post" id="reservation-form" novalidate>
+    {% csrf_token %}
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Crear Reserva</div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="form-group form-inline">
+                        <div class="row p-0">
+                            <div class="col-12">
+                                <h4>Datos del cliente</h4><hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group {% if form.client_name.errors %}has-error has-feedback{% endif %}">
+                                            <span for="inlineinput" class="col-md-6 col-form-label">Nombre</span>
+                                            {{ form.client_name }}
+                                            <label>{{ form.client_name.errors }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group {% if form.client_cell.errors %}has-error has-feedback{% endif %}">
+                                            <span for="inlineinput" class="col-md-6 col-form-label">Numero celular</span>
+                                            {{ form.client_cell }}
+                                            <label>{{ form.client_cell.errors }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group {% if form.client_email.errors %}has-error has-feedback{% endif %}">
+                                            <span for="inlineinput" class="col-md-6 col-form-label">Correo electronico</span>
+                                            {{ form.client_email }}
+                                            <label>{{ form.client_email.errors }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4>Datos de la reserva</h4><hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group {% if form.space.errors %}has-error has-feedback{% endif %}">
+                                            <span for="inlineinput" class="col-md-6 col-form-label">Espacio</span>
+                                            {{ form.space }}
+                                            <label>{{ form.space.errors }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group {% if form.reservation_start.errors %}has-error has-feedback{% endif %}">
+                                            <label for="id_reservation_start" class="form-label">Fecha y hora de inicio</label>
+                                            <div class="input-group">
+                                                {{ form.reservation_start }}
+                                                <button type="button" id="clear-start" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+                                            <label>{{ form.reservation_start.errors }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group {% if form.reservation_end.errors %}has-error has-feedback{% endif %}">
+                                            <label for="id_reservation_end" class="form-label">Fecha y hora fin</label>
+                                            <div class="input-group">
+                                                {{ form.reservation_end }}
+                                                <button type="button" id="clear-end" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+                                            <label>{{ form.reservation_end.errors }}</label>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+              <button type="submit" class="btn btn-success">Guardar</button>
+              <a href="{% url 'reservation_list' %}" class="btn btn-danger">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/app/reservation.js' %}"></script>
+{% endblock %}
