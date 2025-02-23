@@ -7,14 +7,14 @@
           <div class="card-header">
             <div class="row align-items-center">
                 <div class="col-12 col-md-10">
-                    <h4 class="card-title">Horarios</h4>
+                    <h4 class="card-title">Espacios</h4>
                 </div>
                 <div class="col-12 col-md-2 text-md-end text-center mt-2 mt-md-0">
-                    <a href="{% url 'schedules_create' %}" class="btn btn-secondary">
+                    <a href="{% url 'spaces_create' %}" class="btn btn-secondary">
                         <span class="btn-label">
                             <i class="fa fa-plus"></i>
                         </span>
-                        Crear horario
+                        Crear Espacio
                     </a>
                 </div>
             </div>
@@ -25,34 +25,52 @@
                 <thead>
                   <tr>
                     <th class="text-center">Id</th>
-                    <th class="text-center">Dia</th>
-                    <th class="text-center">Hora de inicio</th>
-                    <th class="text-center">Hora fin</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Deporte</th>
+                    <th class="text-center">Horario</th>
+                    <th class="text-center">Numero de jugadores permitidos</th>
+                    <th class="text-center">Descripcion</th>
                     <th class="text-center">Gestión</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {% for schedule in schedules %}
+                    {% for space in spaces %}
                   <tr>
-                    <td class="text-center">{{ schedule.id }}</td>
-                    <td class="text-center">{{ schedule.day_name }}</td>
-                    <td class="text-center">{{ schedule.startime|time:"h:i A" }}</td>
-                    <td class="text-center">{{ schedule.endtime|time:"h:i A" }}</td>
+                    <td class="text-center">{{ space.id }}</td>
+                    <td class="text-center">{{ space.name }}</td>
+                    <td class="text-center">{{ space.sport }}</td>
+                    <td class="text-center">
+                      {% if space.schedule.all %}
+                          <ul class="list-unstyled mb-0">
+                              {% for sch in space.schedule.all %}
+                                  <li>
+                                      {{ sch.get_day_display }}: 
+                                      {{ sch.startime|time:"h:i A" }} - {{ sch.endtime|time:"h:i A" }}
+                                  </li>
+                                  <hr>
+                              {% endfor %}
+                          </ul>
+                      {% else %}
+                          No existen horarios
+                      {% endif %}
+                    </td>    
+                    <td class="text-center">{{ space.numberplayers }}</td>
+                    <td class="text-center">{{ space.description }}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{% url 'schedules_update' schedule.id %}" 
+                            <a href="{% url 'spaces_update' space.id %}" 
                                class="btn btn-icon btn-round btn-black btn-secondary"
                                data-bs-toggle="tooltip" 
                                data-bs-placement="top" 
-                               title="Editar Horario">
+                               title="Editar Espacio">
                                 <i class="fa fa-edit"></i>
                             </a>
                             
-                            <a href="{% url 'schedules_delete' schedule.id %}" 
+                            <a href="{% url 'spaces_delete' space.id %}" 
                                class="btn btn-icon btn-round btn-black btn-danger"
                                data-bs-toggle="tooltip" 
                                data-bs-placement="top" 
-                               title="Eliminar Horario">
+                               title="Eliminar Espacio">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>

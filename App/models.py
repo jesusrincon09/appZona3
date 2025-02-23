@@ -64,7 +64,7 @@ class Spaces(models.Model):
     name = models.CharField(max_length=50)
     sport = models.ForeignKey(Sport, on_delete=models.PROTECT)
     description = models.TextField(null=True, blank=True)
-    schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT)
+    schedule = models.ManyToManyField(Schedule, blank=True)
     numberplayers = models.IntegerField()
 
     class Meta:

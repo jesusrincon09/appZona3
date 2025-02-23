@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/plugins.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/kaiadmin.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}" />
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{% static 'css/demo.css' %}" />
@@ -94,6 +95,12 @@
                 <a href="{% url 'schedules_list' %}">
                   <i class="far fa-calendar-alt"></i>
                   <p>Horarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'spaces_list' %}">
+                  <i class="fab fa-fort-awesome"></i>
+                  <p>Espacios</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -188,7 +195,7 @@
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
               >
-                <div class="input-group">
+                <!-- <div class="input-group">
                   <div class="input-group-prepend">
                     <button type="submit" class="btn btn-search pe-1">
                       <i class="fa fa-search search-icon"></i>
@@ -199,11 +206,11 @@
                     placeholder="Search ..."
                     class="form-control"
                   />
-                </div>
+                </div> -->
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li
+                <!-- <li
                   class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
                 >
                   <a
@@ -227,8 +234,8 @@
                       </div>
                     </form>
                   </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+                </li> -->
+                <!-- <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link dropdown-toggle"
                     href="#"
@@ -318,8 +325,8 @@
                       </a>
                     </li>
                   </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+                </li> -->
+                <!-- <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link dropdown-toggle"
                     href="#"
@@ -396,8 +403,8 @@
                       </a>
                     </li>
                   </ul>
-                </li>
-                <li class="nav-item topbar-icon dropdown hidden-caret">
+                </li> -->
+                <!-- <li class="nav-item topbar-icon dropdown hidden-caret">
                   <a
                     class="nav-link"
                     data-bs-toggle="dropdown"
@@ -474,7 +481,7 @@
                       </div>
                     </div>
                   </div>
-                </li>
+                </li> -->
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
@@ -590,6 +597,12 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{% static 'js/setting-demo.js' %}"></script>
     <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/plugin/select2/select2.min.js' %}"></script>
+    <script>
+      $(document).ready(function() {
+          $('.style-select2').select2();
+      });
+    </script>
     {% include "messages.html" %}
     {% block scripts %}
 
