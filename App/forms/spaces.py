@@ -13,7 +13,7 @@ class SpacesForm(forms.ModelForm):
             'numberplayers': forms.NumberInput(attrs={
                 'class': 'form-control input-full',
                 'min': '1',
-                'oninput': "this.value = Math.max(this.value, 1)"
+                'oninput': "this.value = Math.max(this.value, 0)"
             })
         }
 

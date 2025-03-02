@@ -28,8 +28,5 @@ class CompanyForm(forms.ModelForm):
             if extension not in valid_extensions:
                 raise ValidationError("Solo se permiten archivos PNG, JPG o JPEG.")
 
-            # Validar tipo MIME para mayor seguridad
-            #if not logo.content_type.startswith('image/'):
-            #   raise ValidationError("El archivo debe ser una imagen válida.")
 
         return logo

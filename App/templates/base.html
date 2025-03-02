@@ -39,10 +39,13 @@
     <link rel="stylesheet" href="{% static 'css/kaiadmin.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/select2.min.css' %}" />
     <!-- Flatpickr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/flatpickr.min.css' %}"/>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{% static 'css/demo.css' %}" />
+    {% block styles %}
+
+    {% endblock %}
   </head>
   <body>
     <div class="wrapper">
@@ -52,12 +55,11 @@
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
             <a href="{% url 'home' %}" class="logo">
-              <img
-                src="{{ company.logo.url }}"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="100"
-              />
+              {% if company.logo %}
+                  <img src="{{ company.logo.url }}" alt="navbar brand" class="navbar-brand" height="100">
+              {% else %}
+                  <i class="fas fa-home fa-3x"></i> 
+              {% endif %}
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
@@ -78,7 +80,7 @@
             <ul class="nav nav-secondary">
               <li class="nav-item active">
                 <a href="{% url 'home' %}" class="fas fa-home">
-                  <i class="fas fa-home"></i><p>{{ company.name }}</p>
+                  <i class="fas fa-home"></i><p>{{ company.name | default:"Inicio" }}</p>
                 </a>
               </li>
               <li class="nav-section">
@@ -562,7 +564,7 @@
     </script>
 
     <!-- Flatpickr JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script src="{% static 'js/plugin/flatpickr.min.js' %}"></script>
     {% include "messages.html" %}
     {% block scripts %}
 

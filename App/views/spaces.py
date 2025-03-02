@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.db.models import Prefetch
 from django.contrib.messages.views import SuccessMessageMixin
@@ -38,3 +40,18 @@ class DeleteSpacesView(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, "Espacio eliminado correctamente")
         return super().form_valid(form)
+    
+
+class AjaxSpacesByIdView(View):
+    def get(self, request, pk):
+        space = get_object_or_404(Spaces, pk=pk)
+        data = [
+                {
+                    'id': schedule.pk,
+                    'day': schedule.day,
+                    'start_time': schedule.startime.strftime("%H:%M"),
+                    'end_time': schedule.endtime.strftime("%H:%M")
+                }
+                for schedule in space.schedule.all()
+            ]
+        return JsonResponse({'data':data})

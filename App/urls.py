@@ -32,6 +32,7 @@ urlpatterns = [
     path('spaces/create/', CreateSpacesView.as_view(), name="spaces_create"),
     path('spaces/update/<int:pk>/', UpdateSpacesView.as_view(), name="spaces_update"),
     path('spaces/delete/<int:pk>/', DeleteSpacesView.as_view(), name="spaces_delete"),
+    path('spaces/ajax/<int:pk>/', AjaxSpacesByIdView.as_view(), name="spaces_ajax"),
     #Reservation
     path('reservation/', ListReservationView.as_view(), name="reservation_list"),
     path('reservation/create/', CreateReservationView.as_view(), name="reservation_create"),

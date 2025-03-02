@@ -1,0 +1,12 @@
+.select2-container--default .select2-selection--multiple {
+    min-height: 50px;  /* Altura mínima */
+    max-height: 150px; /* Altura máxima antes de activar el scroll */
+    overflow-y: auto;  /* Activa el scroll si es necesario */
+    white-space: normal !important; /* Permite que las opciones pasen a una nueva línea */
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    display: flex;
+    flex-wrap: wrap;  /* Permite que las etiquetas se ajusten en varias líneas */
+    gap: 5px; /* Espaciado entre etiquetas */
+}

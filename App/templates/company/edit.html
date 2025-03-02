@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block contenido %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
     <div class="page-inner">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <div class="card-title">Crear empresa</div>
+              <div class="card-title">Editar empresa</div>
             </div>
             <div class="card-body">
               <div class="row">
@@ -15,29 +15,54 @@
                     <div class="form-group form-inline">
                         <div class="row p-0">
                             <div class="col-6">
+                              <div class="form-group {% if form.name.errors %}has-error has-feedback{% endif %}">
                                 <label for="inlineinput" class="col-md-1 col-form-label">Nombre</label>
                                 <div class="col-12">{{ form.name }}</div>
+                                <label>{{ form.name.errors }}</label>
+                              </div>
                             </div>
                             <div class="col-6">
-                                <label for="inlineinput" class="col-md-6 col-form-label">Telefono</label>
-                                {{ form.phone }}
+                                <div class="form-group {% if form.phone.errors %}has-error has-feedback{% endif %}">
+                                  <label for="inlineinput" class="col-md-1 col-form-label">Telefono</label>
+                                  <div class="col-12">{{ form.phone }}</div>
+                                  <label>{{ form.phone.errors }}</label>
+                                </div>
                             </div>
                             <div class="col-12">
-                                <label for="inlineinput" class="col-md-6 col-form-label">Direccion</label>
-                                {{ form.address }}
-                                <label for="inlineinput" class="col-md-6 col-form-label">Logo</label>
-                                {{ form.logo }}
-                                <label for="inlineinput" class="col-md-6 col-form-label">Descripcion</label>
-                                {{ form.description }}
+                              <div class="form-group {% if form.address.errors %}has-error has-feedback{% endif %}">
+                                <label for="inlineinput" class="col-md-1 col-form-label">Direccion</label>
+                                <div class="col-12">{{ form.address }}</div>
+                                <label>{{ form.address.errors }}</label>
+                              </div>
+                              <div class="form-group {% if form.logo.errors %}has-error has-feedback{% endif %}">
+                                <label for="inlineinput" class="col-md-1 col-form-label">Logo</label>
+                                <div class="row">
+                                  <div class="col-8">{{ form.logo }}</div>
+                                  <div class="col-4 text-center">
+                                    {% if company.logo %}
+                                        <h5>Logo actual</h5>
+                                        <img src="{{ company.logo.url }}" alt="navbar brand" class="navbar-brand" height="100">
+                                    {% else %}
+                                        <i class="fas fa-home fa-3x"></i> 
+                                    {% endif %}
+                                  </div>
+                                </div>
+                                <label>{{ form.logo.errors }}</label>
+                              </div>
+                              <div class="form-group {% if form.description.errors %}has-error has-feedback{% endif %}">
+                                <label for="inlineinput" class="col-md-1 col-form-label">Descripcion</label>
+                                <div class="col-12">{{ form.description }}</div>
+                                <label>{{ form.description.errors }}</label>
+                              </div>
                             </div>
                         </div>
                       </div>
                 </div>
               </div>
             </div>
-            <div class="card-action">
-              <button type="submit" class="btn btn-success">Guardar</button>
+            <div class="card-action d-flex justify-content-end">
               <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
+              <button type="submit" class="btn btn-success ms-2">Guardar</button>
             </div>
           </div>
         </div>
