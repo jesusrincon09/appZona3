@@ -1,6 +1,6 @@
 from django.db import models
 from enum import Enum
-# Create your models here.
+from django.contrib.auth.models import Permission
 
 class Sport(models.Model):
     name = models.CharField(max_length=50)
@@ -10,6 +10,7 @@ class Sport(models.Model):
         verbose_name = 'Sport'
         verbose_name_plural = 'Sports'
         db_table = 'sport'
+        default_permissions = ()
 
     def __str__(self):
         return self.name
@@ -25,6 +26,7 @@ class Company(models.Model):
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'
         db_table = 'company'
+        default_permissions = ()
 
     def __str__(self):
         return self.name
@@ -51,6 +53,7 @@ class Schedule(models.Model):
         verbose_name = 'Schedule'
         verbose_name_plural = 'Schedules'
         db_table = 'schedules'
+        default_permissions = ()
 
     def __str__(self):
         return f"{Days(self.day).name} ({self.startime} - {self.endtime})"
@@ -71,6 +74,7 @@ class Spaces(models.Model):
         verbose_name = 'Space'
         verbose_name_plural = 'Spaces'
         db_table = 'spaces'
+        default_permissions = ()
 
     def __str__(self):
         return self.name
@@ -87,11 +91,25 @@ class Reservation(models.Model):
         verbose_name = 'Reservation'
         verbose_name_plural = 'Reservations'
         db_table = 'reservation'
+        default_permissions = ()
 
     def __str__(self):
         return self.client_name
 
+class Module(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    icon = models.CharField(max_length=50)
+    permissions = models.ManyToManyField(Permission, related_name='modules')
+    url_name = models.CharField(max_length=100) 
 
+    class Meta:
+        default_permissions = ()
+
+    def __str__(self):
+        return self.name
+
+    def user_has_access(self, user):
+        return user.user_permissions.filter(id__in=self.permissions.values_list('id', flat=True)).exists()
 
 
 

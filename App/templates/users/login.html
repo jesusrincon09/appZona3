@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+        .card {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .btn-primary {
+            border-radius: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h3>Iniciar sesión</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Nombre de usuario</label>
+                    <input type="text" name="username" class="form-control" placeholder="Ingrese su usuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Contraseña</label>
+                    <input type="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
+                </div><br>
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Usuario o contraseña incorrectos. Inténtalo de nuevo.
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary btn-block mt-4">Iniciar sesión</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
