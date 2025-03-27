@@ -7,13 +7,19 @@ from .views.schedules import *
 from .views.company import *
 from .views.spaces import *
 from .views.reservation import *
+from .views.users import *
+from .views.roles import *
+from .views.login import *
 from django.conf.urls import handler404
 
 handler404 = Custom404View.as_view()
 
 urlpatterns = [
+    #Login
+    path('', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
     #Home
-    path('', CustomIndexView.as_view(), name="home"),
+    path('home/', CustomIndexView.as_view(), name="home"),
     #Sport
     path('sport/', ListSportView.as_view(), name="sport_list"),
     path('sport/create/', CreateSportView.as_view(), name="sport_create"),
@@ -38,4 +44,15 @@ urlpatterns = [
     path('reservation/create/', CreateReservationView.as_view(), name="reservation_create"),
     path('reservation/update/<int:pk>/', UpdateReservationView.as_view(), name="reservation_update"),
     path('reservation/delete/<int:pk>/', DeleteReservationView.as_view(), name="reservation_delete"),
+    #Users
+    path('users/', UserListView.as_view(), name='user_list'),
+    path('users/create/', UserCreateView.as_view(), name='user_create'),
+    path('users/<int:pk>/edit/', UserUpdateView.as_view(), name='user_update'),
+    path('users/<int:pk>/delete/', UserDeleteView.as_view(), name='user_delete'),
+    #Roles
+    path('roles/', RoleListView.as_view(), name='role_list'),
+    path('roles/create/', RoleCreateView.as_view(), name='role_create'),
+    path('roles/<int:pk>/update/', RoleUpdateView.as_view(), name='role_update'),
+    path('roles/<int:pk>/delete/', RoleDeleteView.as_view(), name='role_delete'),
+
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

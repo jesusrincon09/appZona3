@@ -89,30 +89,20 @@
                 </span>
                 <h4 class="text-section">Opciones</h4>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'sport_list' %}">
-                  <i class="fas fa-basketball-ball"></i>
-                  <p>Deportes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'schedules_list' %}">
-                  <i class="far fa-calendar-alt"></i>
-                  <p>Horarios</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'spaces_list' %}">
-                  <i class="fab fa-fort-awesome"></i>
-                  <p>Espacios</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'reservation_list' %}">
-                  <i class="fas fa-concierge-bell"></i>
-                  <p>Reservas</p>
-                </a>
-              </li>
+              {% for module in modules %}
+                <li class="nav-item">
+                  <a href="{% url module.url_name %}">
+                    <i class="{{ module.icon }}"></i>
+                    <p>{{ module.name }}</p>
+                  </a>
+                </li>
+              {% empty %}
+                <li class="nav-item">
+                  <p>No tienes acceso a ningún módulo.</p>
+                </li>
+              {% endfor %}
+
+            
             </ul>
           </div>
         </div>
@@ -491,7 +481,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
                       </li>
                     </div>
                   </ul>
