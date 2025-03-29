@@ -133,3 +133,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Media files
 MEDIA_ROOT = BASE_DIR /'media'
 MEDIA_URL = '/media/'
+
+
+#CACHE DE DJANGO
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+
+# Dirección de correo predeterminada 
+DEFAULT_FROM_EMAIL = 'pruebasproyecto300@gmail.com'
+
+# Configuración de email para Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pruebasproyecto300@gmail.com'
+EMAIL_HOST_PASSWORD = 'ahrm bnwi aftl zhke'

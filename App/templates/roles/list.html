@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="page-inner">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-10">
+                    <h4 class="card-title">Roles</h4>
+                </div>
+                <div class="col-12 col-md-2 text-md-end text-center mt-2 mt-md-0">
+                    <a href="{% url 'role_create' %}" class="btn btn-secondary">
+                        <span class="btn-label">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        Crear rol
+                    </a>
+                </div>
+            </div>
+        </div> 
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="multi-filter-select" class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Permisos</th>
+                    <th class="text-center">Gestión</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for role in roles %}
+                  <tr>
+                    <td>{{ role.id }}</td>
+                    <td>{{ role.name }}</td>
+                    <td>
+                        {% for perm in role.permissions.all %}
+                            <span class="badge bg-info">{{ perm.name }}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{% url 'role_update' role.id %}" 
+                               class="btn btn-icon btn-round btn-black btn-secondary"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="Editar rol">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            
+                            <a href="{% url 'role_delete' role.id %}" 
+                               class="btn btn-icon btn-round btn-black btn-danger"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="Eliminar rol">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>                                      
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/app/tools.js' %}"></script>
+{% endblock %}
