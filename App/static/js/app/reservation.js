@@ -1,10 +1,11 @@
+let today = new Date();
 document.addEventListener("DOMContentLoaded", function() {
     let startPicker = flatpickr("#id_reservation_start", {
         enableTime: true,
         dateFormat: "d-m-Y h:i K",
         time_24hr: false,
         minuteIncrement: 1,
-        minDate: "today",
+        minDate: today,
         onChange: function(selectedDates, dateStr, instance) {
             let selectedDate = selectedDates[0];
             let endPickerInstance = document.querySelector("#id_reservation_end")._flatpickr;
@@ -22,12 +23,13 @@ document.addEventListener("DOMContentLoaded", function() {
         dateFormat: "d-m-Y h:i K",
         time_24hr: false,
         minuteIncrement: 1,
-        minDate: "today",
+        minDate: today,
     });
 
     // Botón para limpiar fecha de inicio
     document.getElementById("clear-start").addEventListener("click", function() {
         startPicker.clear();
+        endPicker.clear();
     });
 
     // Botón para limpiar fecha de fin
