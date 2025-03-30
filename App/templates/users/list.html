@@ -47,6 +47,13 @@
                                title="Editar usuario">
                                 <i class="fa fa-edit"></i>
                             </a>
+                            <a href="{% url 'user_permissions' user.id %}" 
+                               class="btn btn-icon btn-round btn-black btn-succes"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="Gestionar permisos">
+                                <i class="fa fa-cog"></i>
+                            </a>
                             <a href="{% url 'user_delete' user.id %}" 
                                class="btn btn-icon btn-round btn-black btn-danger"
                                data-bs-toggle="tooltip" 

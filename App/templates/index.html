@@ -9,10 +9,12 @@
           </h1>        
         </div>
         <div class="ms-md-auto py-2 py-md-0">
-          {% if company %}
-            <a href="{% url 'company_update' company.pk %}" class="btn btn-secondary btn-round">Editar empresa</a>
-          {% else %}
-            <a href="{% url 'company_create' %}" class="btn btn-primary btn-round">Crear empresa</a>
+          {% if perms.App.add_company %}
+            {% if company %}
+              <a href="{% url 'company_update' company.pk %}" class="btn btn-secondary btn-round">Editar empresa</a>
+            {% else %}
+              <a href="{% url 'company_create' %}" class="btn btn-primary btn-round">Crear empresa</a>
+            {% endif %}
           {% endif %}
         </div>
       </div>

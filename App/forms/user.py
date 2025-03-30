@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User, Group
-from App.models import Module
+from App.models import Module, Permission
+from django.contrib.contenttypes.models import ContentType
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -51,3 +52,20 @@ class UserForm(forms.ModelForm):
 
     def get_user_modules(self, user):
         return Module.objects.filter(permissions__in=user.user_permissions.all()).distinct()
+
+class UserPermissionForm(forms.ModelForm):
+    user_permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.filter(content_type=ContentType.objects.get_for_model(Module)),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    def get_permissions_by_module(self):
+        """ Agrupar permisos por módulo """
+        modules = Module.objects.prefetch_related('permissions').all()
+        grouped_permissions = {module.name: module.permissions.all() for module in modules}
+        return grouped_permissions
+
+    class Meta:
+        model = User
+        fields = ['user_permissions']
