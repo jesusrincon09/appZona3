@@ -49,6 +49,7 @@ urlpatterns = [
     path('users/create/', UserCreateView.as_view(), name='user_create'),
     path('users/<int:pk>/edit/', UserUpdateView.as_view(), name='user_update'),
     path('users/<int:pk>/delete/', UserDeleteView.as_view(), name='user_delete'),
+    path('users/<int:pk>/permissions/', UserPermissionUpdateView.as_view(), name='user_permissions'),
     #Roles
     path('roles/', RoleListView.as_view(), name='role_list'),
     path('roles/create/', RoleCreateView.as_view(), name='role_create'),

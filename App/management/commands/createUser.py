@@ -6,7 +6,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         user, created = User.objects.get_or_create(
-            username='admin',
+            username='jesus',
             defaults={
                 'email': 'jesusrincon0927@gmail.com',
                 'is_staff': True,
@@ -15,7 +15,7 @@ class Command(BaseCommand):
         )
 
         if created:
-            user.set_password('admin123')  
+            user.set_password('jesus')  
             user.save()
             self.stdout.write(self.style.SUCCESS(f'Usuario "{user.username}" creado con todos los permisos.'))
         else:

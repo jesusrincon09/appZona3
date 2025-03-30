@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Gestionar permisos para el usuario {{ user.username }}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    {% for module, permissions in grouped_permissions.items %}
+                                        <fieldset class="mb-3">
+                                            <legend><strong>{{ module }}</strong></legend>
+                                            <ul style="list-style-type: none; padding-left: 10px;">
+                                                {% for permission in permissions %}
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" name="user_permissions"
+                                                                   value="{{ permission.id }}"
+                                                                   {% if permission.id in form.initial.user_permissions %}checked{% endif %}>
+                                                            {{ permission.name }}
+                                                        </label>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </fieldset>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'user_list' %}" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

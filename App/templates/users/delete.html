@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block contenido %}
+<form method="post">
+    {% csrf_token %}
+    <div class="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Eliminar usuario</div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <p>¿Está seguro de eliminar el usuario <b>{{ user }}</b>?</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-action d-flex justify-content-end">
+              <a href="{% url 'user_list' %}" class="btn btn-info">Cancelar</a>
+              <button type="submit" class="btn btn-danger ms-2">Eliminar</button>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock %}
