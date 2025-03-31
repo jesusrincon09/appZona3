@@ -26,6 +26,12 @@ class UserForm(forms.ModelForm):
         required=False,
         label='Grupos'
     )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:  
+            user_groups = self.instance.groups.all()
+            if user_groups.exists():  
+                self.initial['groups'] = user_groups.first() 
 
     class Meta:
         model = User
@@ -45,9 +51,17 @@ class UserForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
+        if user.pk:
+            user.groups.clear()
+
+        group = self.cleaned_data.get('groups')
+        if group:
+            user.save()
+            user.groups.add(group) 
+
         if commit:
             user.save()
-            self.save_m2m()
+
         return user
 
     def get_user_modules(self, user):
