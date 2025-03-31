@@ -52,6 +52,12 @@ class UserUpdateView(SuccessMessageMixin,CustomPermissionMixin, UpdateView):
     permission_required = 'App.edit_user'
     success_message = "Usuario editado correctamente"
 
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        print('hola')
+        return response
+    
+
 class UserDeleteView(CustomPermissionMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'

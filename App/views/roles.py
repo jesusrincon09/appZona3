@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from App.forms.roles import RoleForm
 from django.urls import reverse_lazy
 from django.contrib import messages  
+from django.shortcuts import redirect, get_object_or_404
 
 class RoleListView(PermissionRequiredMixin, ListView):
     model = Group
@@ -35,6 +36,11 @@ class RoleDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('role_list')
     permission_required = 'auth.delete_group'
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user_set.exists():
+            messages.error(self.request, "No se puede eliminar este rol porque tiene usuarios asociados.")
+            return redirect(self.success_url)
+        self.object.delete()
         messages.success(self.request, "Rol eliminado correctamente")
-        return super().form_valid(form)
+        return redirect(self.success_url)

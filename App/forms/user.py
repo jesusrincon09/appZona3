@@ -20,9 +20,9 @@ class UserForm(forms.ModelForm):
         'class': 'form-control',
         'placeholder': 'Ingrese los apellidos del usuario'
     }))
-    groups = forms.ModelMultipleChoiceField(
+    groups = forms.ModelChoiceField(
         queryset=Group.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect,
         required=False,
         label='Grupos'
     )
