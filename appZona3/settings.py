@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from .parameters import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,13 +79,12 @@ WSGI_APPLICATION = 'appZona3.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'db_zona3x3', 
-        'USER': 'root',                 
-        'PASSWORD': '',          
-        'HOST': '127.0.0.1',                  
-        'PORT': '3306',                       
-
+        'ENGINE': DB_ENGINE,  
+        'NAME': DB_NAME, 
+        'USER': DB_USER,                 
+        'PASSWORD': DB_PASSWORD,          
+        'HOST': DB_HOST,                  
+        'PORT': DB_PORT,                       
     }
 }
 
@@ -158,7 +158,7 @@ DEFAULT_FROM_EMAIL = 'pruebasproyecto300@gmail.com'
 # Configuración de email para Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'pruebasproyecto300@gmail.com'
-EMAIL_HOST_PASSWORD = 'ahrm bnwi aftl zhke'
+EMAIL_PORT = EMAIL_PORT
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
