@@ -69,10 +69,17 @@ class UserForm(forms.ModelForm):
 
 class UserPermissionForm(forms.ModelForm):
     user_permissions = forms.ModelMultipleChoiceField(
-        queryset=Permission.objects.filter(content_type=ContentType.objects.get_for_model(Module)),
+        queryset=Permission.objects.none(), 
         required=False,
         widget=forms.CheckboxSelectMultiple
     )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        try:
+            content_type = ContentType.objects.get_for_model(Module)
+            self.fields['user_permissions'].queryset = Permission.objects.filter(content_type=content_type)
+        except ContentType.DoesNotExist:
+            self.fields['user_permissions'].queryset = Permission.objects.none()
 
     def get_permissions_by_module(self):
         """ Agrupar permisos por módulo """
