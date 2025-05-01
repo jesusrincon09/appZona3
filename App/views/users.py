@@ -27,7 +27,7 @@ class UserCreateView(SuccessMessageMixin,CustomPermissionMixin, CreateView):
     form_class = UserForm
     template_name = 'users/create.html'
     success_url = reverse_lazy('user_list')
-    permission_required = 'auth.add_user'
+    permission_required = 'App.add_user'
     success_message = "Usuario creado correctamente"
 
     def form_valid(self, form):
@@ -66,7 +66,7 @@ class UserDeleteView(CustomPermissionMixin, DeleteView):
 class UserPermissionUpdateView(CustomPermissionMixin, FormView):
     template_name = 'users/manage_permissions.html'
     form_class = UserPermissionForm
-    permission_required = 'App.add_user'
+    permission_required = 'App.permision'
 
     def get_user(self):
         user_id = self.kwargs.get('pk')
