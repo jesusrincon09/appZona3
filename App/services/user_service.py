@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from App.services.email import send_email
+from appZona3.parameters import URL_SITE
 
-def generate_random_password(length=12):
+def generate_random_password(length=8):
     characters = string.ascii_letters + string.digits + string.punctuation
     return ''.join(random.choice(characters) for _ in range(length))
 
@@ -20,14 +21,25 @@ def create_user_with_random_password(username, email, first_name='', last_name='
     )
 
     if groups:
-        user.groups.set(groups)
+        user.groups.set([groups])
 
     subject = 'Bienvenido a la plataforma'
-    message = f"Hola {first_name},\n\nTu cuenta ha sido creada con éxito.\n\n" \
-              f"Usuario: {username}\n" \
-              f"Contraseña: {password}\n\n" \
-              "Por favor, cambia tu contraseña después de iniciar sesión."
+    body = (
+        f"Hola {first_name},<br><br>"
+        f"Tu cuenta ha sido creada con éxito.<br><br>"
+        f"<strong>Usuario:</strong> {username}<br>"
+        f"<strong>Contraseña:</strong> {password}<br><br>"
+        f"Por favor, cambia tu contraseña después de iniciar sesión."
+    )
 
-    send_email(subject, message, [email])
+    send_email(
+        subject=subject,
+        body=body,
+        recipient_list=[email],
+        button_url=URL_SITE,
+        button_text='Iniciar sesión'
+    )
+
     return user
+
 

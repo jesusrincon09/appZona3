@@ -31,18 +31,22 @@ class UserCreateView(SuccessMessageMixin,CustomPermissionMixin, CreateView):
     success_message = "Usuario creado correctamente"
 
     def form_valid(self, form):
-        username = form.cleaned_data.get('username')
-        email = form.cleaned_data.get('email')
-        first_name = form.cleaned_data.get('first_name')
-        last_name = form.cleaned_data.get('last_name')
-        groups = form.cleaned_data.get('groups')
-        user = create_user_with_random_password(username, email, first_name, last_name, groups)
-        if user:
-            messages.success(self.request, 'Usuario creado y contraseña enviada por correo.')
-        else:
+        try:
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            groups = form.cleaned_data.get('groups')
+            user = create_user_with_random_password(username, email, first_name, last_name, groups)
+            if user:
+                messages.success(self.request, 'Usuario creado y contraseña enviada por correo.')
+            else:
+                messages.error(self.request, 'Hubo un problema al crear el usuario.')
+                return self.form_invalid(form)
+            return redirect(self.success_url)
+        except Exception as e:
             messages.error(self.request, 'Hubo un problema al crear el usuario.')
-            return self.form_invalid(form)
-        return redirect(self.success_url)
+            return redirect(self.success_url)
 
 class UserUpdateView(SuccessMessageMixin,CustomPermissionMixin, UpdateView):
     model = User

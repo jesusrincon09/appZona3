@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            width: 100%;
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background-color: #6861ce;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            color: #fff;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .email-body {
+            padding: 20px;
+        }
+
+        .email-body p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #6861ce !important;
+            color: #fff !important;
+            text-align: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .footer a {
+            color: #6861ce !important;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="email-container">
+        <div class="email-header">
+            <h1>{{ subject }}</h1>
+        </div>
+
+        <div class="email-body">
+            <p>{{ body|safe }}</p>
+
+            {% if button_url %}
+            <div class="button-wrapper">
+                <a href="{{ button_url }}" class="button">
+                    {{ button_text }}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <p>Si no solicitaste este registro, por favor ignora este correo.</p>
+        </div>
+    </div>
+
+</body>
+</html>
