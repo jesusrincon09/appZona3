@@ -1,14 +1,23 @@
 from django.contrib.auth.models import User, Permission
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
-from django.urls import reverse_lazy
-from App.forms.user import UserForm, UserPermissionForm
-from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, View
+from django.urls import reverse_lazy,reverse
+from App.forms.user import UserForm, UserPermissionForm, PasswordRecoveryForm
+from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib import messages
 from App.services.user_service import create_user_with_random_password
 from django.contrib.contenttypes.models import ContentType
 from App.models import Module
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from App.services.email import send_email
+from appZona3.parameters import URL_SITE
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+
 
 class CustomPermissionMixin(PermissionRequiredMixin):
     def handle_no_permission(self):
@@ -119,3 +128,43 @@ class UserPermissionUpdateView(CustomPermissionMixin, FormView):
         user.user_permissions.set(form.cleaned_data['user_permissions']) 
         messages.success(self.request, f'Permisos actualizados para el usuario {user.username}')
         return redirect('user_list')
+
+class Recoverpassword(View):
+    template_name = 'users/recovery_password.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        username = request.POST.get('username')
+        try:
+            user = User.objects.get(username=username)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = request.build_absolute_uri(
+                reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+            )
+            subject = 'Recuperación de contraseña'
+            body = 'Haz clic en el botón para restablecer tu contraseña, ten presente que el enlace solo es valido durante los proximos 15 minutos.'
+            send_email(
+                subject=subject,
+                body=body,
+                recipient_list=[user.email],
+                button_url=reset_url,
+                button_text='Restablecer contraseña'
+            )
+            messages.success(request, 'Se ha enviado un enlace de recuperación al correo asociado.')
+        except User.DoesNotExist:
+            messages.error(request, 'Usuario no encontrado.')
+        return render(request, self.template_name)
+    
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Tu contraseña fue restablecida exitosamente.")
+        return super().form_valid(form)
+
+
+

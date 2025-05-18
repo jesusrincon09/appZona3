@@ -1,7 +1,6 @@
 import random
 import string
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.conf import settings
 from App.services.email import send_email
 from appZona3.parameters import URL_SITE

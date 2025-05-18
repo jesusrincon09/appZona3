@@ -90,3 +90,6 @@ class UserPermissionForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['user_permissions']
+
+class PasswordRecoveryForm(forms.Form):
+    username = forms.CharField(label='Usuario', max_length=150)
