@@ -6,6 +6,8 @@ from App.forms.roles import RoleForm
 from django.urls import reverse_lazy
 from django.contrib import messages  
 from django.shortcuts import redirect, get_object_or_404
+from App.utils import get_grouped_permissions
+from App.management.commands.PERMISSION import MODULES 
 
 class RoleListView(PermissionRequiredMixin, ListView):
     model = Group
@@ -22,6 +24,12 @@ class RoleCreateView(SuccessMessageMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'auth.add_group'
     success_message = "Rol creado correctamente"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = context['form']
+        context['grouped_permissions'] = get_grouped_permissions(form.fields['permissions'].queryset, MODULES)
+        return context
+
 class RoleUpdateView(SuccessMessageMixin,PermissionRequiredMixin, UpdateView):
     model = Group
     form_class = RoleForm
@@ -29,6 +37,12 @@ class RoleUpdateView(SuccessMessageMixin,PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('role_list')
     permission_required = 'auth.change_group'
     success_message = "Rol editado correctamente"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = context['form']
+        context['grouped_permissions'] = get_grouped_permissions(form.fields['permissions'].queryset, MODULES)
+        return context
 
 class RoleDeleteView(PermissionRequiredMixin, DeleteView):
     model = Group
