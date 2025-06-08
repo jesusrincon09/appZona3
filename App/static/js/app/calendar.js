@@ -17,6 +17,17 @@ document.addEventListener('DOMContentLoaded', function() {
         timeGridWeek: 'Semana',
         timeGridDay: 'Día',
         listWeek: 'Lista'
+      },slotLabelFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short',
+        hour12: true 
+      },
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short',
+        hour12: true 
       },
       events:'/reservations/',
       eventClick: function(info) {
@@ -26,8 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('clientCell').textContent = props.client_cell || '';
         document.getElementById('clientEmail').textContent = props.client_email || '';
         document.getElementById('spaceName').textContent = props.space || '';
-        document.getElementById('reservationStart').textContent = info.event.start ? info.event.start.toLocaleString() : '';
-        document.getElementById('reservationEnd').textContent = info.event.end ? info.event.end.toLocaleString() : '';
+        document.getElementById('reservationStart').textContent = info.event.start
+       document.getElementById('reservationStart').textContent = info.event.start
+          ? info.event.start.toLocaleString('es-ES', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            })
+          : '';
+
+        document.getElementById('reservationEnd').textContent = info.event.end
+          ? info.event.end.toLocaleString('es-ES', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            })
+          : '';
+
+
         var modal = new bootstrap.Modal(document.getElementById('reservationModal'));
         modal.show();
       },

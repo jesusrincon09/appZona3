@@ -23,7 +23,7 @@ class ReservationEventsView(View):
         for r in reservations:
             events.append({
                 "id": r.id,
-                "title": r.client_name,
+                "title": u'{} - {}'.format(r.client_name, r.space.name ),
                 "start": r.reservation_start.isoformat(),
                 "end": r.reservation_end.isoformat(),
                 "extendedProps": {
