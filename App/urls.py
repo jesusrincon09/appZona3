@@ -11,6 +11,7 @@ from .views.users import *
 from .views.roles import *
 from .views.login import *
 from django.conf.urls import handler404
+from django.contrib.auth import views as auth_views
 
 handler404 = Custom404View.as_view()
 
@@ -50,6 +51,8 @@ urlpatterns = [
     path('users/<int:pk>/edit/', UserUpdateView.as_view(), name='user_update'),
     path('users/<int:pk>/delete/', UserDeleteView.as_view(), name='user_delete'),
     path('users/<int:pk>/permissions/', UserPermissionUpdateView.as_view(), name='user_permissions'),
+    path('user/recover/password/', Recoverpassword.as_view(), name='recovery_password'),
+    path('reset/<uidb64>/<token>/',CustomPasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     #Roles
     path('roles/', RoleListView.as_view(), name='role_list'),
     path('roles/create/', RoleCreateView.as_view(), name='role_create'),
