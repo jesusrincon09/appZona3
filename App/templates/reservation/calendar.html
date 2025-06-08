@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+ <link rel="stylesheet" href="{% static 'css/styles_calendar.css' %}" />
+{% endblock %}
+
+{% block contenido %}
+<div class="page-inner">
+  <div class="col-md-12">
+    <div id='calendar'></div>
+  </div>
+</div>
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationModalLabel">Detalles de la Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Cliente:</strong> <span id="clientName"></span></p>
+        <p><strong>Celular:</strong> <span id="clientCell"></span></p>
+        <p><strong>Email:</strong> <span id="clientEmail"></span></p>
+        <p><strong>Espacio:</strong> <span id="spaceName"></span></p>
+        <p><strong>Inicio:</strong> <span id="reservationStart"></span></p>
+        <p><strong>Fin:</strong> <span id="reservationEnd"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/app/tools.js' %}"></script>
+  <script src="{% static 'js/plugin/full-calendar/full-calendar.min.js' %}"></script>
+ <script src="{% static 'js/app/calendar.js' %}"></script>
+
+{% endblock %}
+
+
