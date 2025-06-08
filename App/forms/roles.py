@@ -28,3 +28,6 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name', 'permissions']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control input-full'}),        
+        }
