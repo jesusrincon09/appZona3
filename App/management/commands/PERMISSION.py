@@ -59,6 +59,7 @@ MODULES = [
         "permissions": [
             {"codename": "list_users", "name": "Listar Usuarios"},
             {"codename": "add_user", "name": "Crear Usuario"},
+            {"codename": "permision", "name": "Gestionar Permisos"},
             {"codename": "edit_user", "name": "Editar Usuario"},
             {"codename": "delete_user", "name": "Eliminar Usuario"},
         ],

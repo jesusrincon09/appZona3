@@ -26,7 +26,7 @@
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Permisos</th>
+                    <th class="text-center">Permisos</th>
                     <th class="text-center">Gestión</th>
                   </tr>
                 </thead>
@@ -36,9 +36,11 @@
                     <td>{{ role.id }}</td>
                     <td>{{ role.name }}</td>
                     <td>
+                      <div align="justify">
                         {% for perm in role.permissions.all %}
-                            <span class="badge bg-info">{{ perm.name }}</span>
+                            <span class="badge bg-info">{{ perm.name }}</span>&nbsp;
                         {% endfor %}
+                      </div>
                     </td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">

@@ -26,7 +26,7 @@
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Descripción</th>
+                    <th class="text-center">Descripción</th>
                     <th class="text-center">Gestión</th>
                   </tr>
                 </thead>
@@ -35,7 +35,7 @@
                   <tr>
                     <td>{{ sport.id }}</td>
                     <td>{{ sport.name }}</td>
-                    <td>{{ sport.description }}</td>
+                    <td><p align="justify">{{ sport.description }}</p></td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{% url 'sport_update' sport.id %}" 
