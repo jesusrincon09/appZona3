@@ -1,6 +1,9 @@
 from django.db import models
 from enum import Enum
 from django.contrib.auth.models import Permission
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Sport(models.Model):
     name = models.CharField(max_length=50)
@@ -112,6 +115,22 @@ class Module(models.Model):
         return user.user_permissions.filter(id__in=self.permissions.values_list('id', flat=True)).exists()
 
 
+
+class Log(models.Model):
+    ACTION_CHOICES = [
+        ('create', 'Create'),
+        ('update', 'Update'),
+        ('delete', 'Delete'),
+    ]
+
+    module = models.CharField(max_length=255)  
+    date = models.DateTimeField(auto_now_add=True)  
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  
+    description = models.TextField()  
+    action = models.CharField(max_length=10, choices=ACTION_CHOICES) 
+
+    def __str__(self):
+        return f"{self.module} - {self.action} - {self.date.strftime('%Y-%m-%d %H:%M:%S')}"
 
 
 

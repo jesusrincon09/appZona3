@@ -10,6 +10,7 @@ from .views.reservation import *
 from .views.users import *
 from .views.roles import *
 from .views.login import *
+from .views.logs import *
 from django.conf.urls import handler404
 from django.contrib.auth import views as auth_views
 
@@ -60,5 +61,7 @@ urlpatterns = [
     path('roles/create/', RoleCreateView.as_view(), name='role_create'),
     path('roles/<int:pk>/update/', RoleUpdateView.as_view(), name='role_update'),
     path('roles/<int:pk>/delete/', RoleDeleteView.as_view(), name='role_delete'),
+    #Logs
+    path('logs/', LogsListView.as_view(), name='logs_list'),
 
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
