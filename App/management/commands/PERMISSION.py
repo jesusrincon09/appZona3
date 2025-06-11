@@ -75,4 +75,12 @@ MODULES = [
             {"codename": "delete_rol", "name": "Eliminar Rol"},
         ],
     },
+    {
+        "name": "Logs",
+        "name_url": "logs_list",
+        "icon": "fas fa-file-alt",
+        "permissions": [
+            {"codename": "list_logs", "name": "Listar Logs"},
+        ],
+    },
 ]

@@ -6,4 +6,5 @@ class AppConfig(AppConfig):
     name = 'App' 
 
     def ready(self):
-        import App.signals
+        from .signals import connect_signals
+        connect_signals()

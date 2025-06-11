@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+    <div class="page-inner">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-10">
+                    <h4 class="card-title">Logs</h4>
+                </div>
+            </div>
+        </div> 
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="multi-filter-select" class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Modulo</th>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Acción</th>
+                    <th>Descripcion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                  <tr>
+                    <td>{{ log.module }}</td>
+                    <td style="width: 20%;">{{ log.date }}</td>
+                    <td>{{ log.user }}</td>    
+                    <td>{{ log.action }}</td>                                    
+                    <td>{{ log.description }}</td>    
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/app/tools.js' %}"></script>
+{% endblock %}
